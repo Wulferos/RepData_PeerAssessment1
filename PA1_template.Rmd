@@ -1,25 +1,31 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
+title: "PA1_template"
+output: html_document
 ---
+### Reading the file
+```{r}
+activity <- read.csv("activity.csv", colClasses = "character", na.strings="NA")
+```
+### Converting date into date format
+```{r}
+activity$date <- as.Date(activity$date, "%Y-%m-%d")
+activity$steps <- as.numeric(activity$steps)
+attach(activity) # making the work easier
+```
+### Histogram thing, mean and median
+```{r}
+hist(steps) # still not sure, whether this is all we were supposed to plot...
+```
 
+### Mean and median
+```{r}
+mean(steps,na.rm=T)
+median(steps,na.rm=T)
+```
 
-## Loading and preprocessing the data
-
-
-
-## What is mean total number of steps taken per day?
-
-
-
-## What is the average daily activity pattern?
-
-
-
-## Imputing missing values
-
-
-
-## Are there differences in activity patterns between weekdays and weekends?
+### Time series
+```{r}
+activity[,4]<-seq(1:17568)
+colnames(activity)<-c( "steps","date", "interval", "interval2")
+plot(activity$interval2, steps, type="l", xlab="5-minute interval")
+```
